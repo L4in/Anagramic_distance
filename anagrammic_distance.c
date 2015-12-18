@@ -58,25 +58,6 @@ char* closest_anagram(char *reference, char *testee, char* result)
 		}
 	}
 
-	//Stuffing the rest into the result string
-
-	for(i = 0; i < testee_lenght; i++)
-	{
-		// Blank to fill
-		if (result[i] == ' ')
-		{
-			for(j = 0; i < testee_lenght; j++)
-			{
-				if (testee[j] != ' ')
-				{
-					result[i] = testee[j];
-					testee[j] =  ' ';
-					break;
-				}
-			}
-		}
-	}
-
 	return result;
 }
 
