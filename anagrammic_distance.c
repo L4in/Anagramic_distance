@@ -5,6 +5,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<ctype.h>
 
 #define MIN3(a, b, c) ((a) < (b) ? ((a) < (c) ? (a) : (c)) : ((b) < (c) ? (b) : (c)))
 
@@ -61,23 +62,18 @@ char* closest_anagram(char *reference, char *testee, char* result)
 	return result;
 }
 
-int main(int argc, char* argv[])
+void calculate_anagrammic_distance(char* reference, char* testee)
 {
-	if (argc != 3)
-	{
-		printf("Please input two words\n");
-		return 0;
-	}
 
-	int testee_lenght = strlen(argv[2]);
-	int reference_lenght = strlen(argv[1]);
+	int testee_lenght = strlen(testee);
+	int reference_lenght = strlen(reference);
 
 	int result_size = 0;
 
 	if (testee_lenght < reference_lenght)
-		{
-			result_size = reference_lenght;
-		}
+	{
+		result_size = reference_lenght;
+	}
 	else {
 		result_size = testee_lenght;
 	}
@@ -86,12 +82,44 @@ int main(int argc, char* argv[])
 	char *result = malloc(result_size*sizeof(char));
 
 
-	closest_anagram(argv[1], argv[2], result);
+	closest_anagram(reference, testee, result);
 
-	printf("%d\n", levenshtein(argv[1], result));
+	printf("Distance: > %d\n", levenshtein(reference, result));
 
 	free(result);
+}
+
+void lowercase(char* string)
+{
+	int i = 0;
+
+	for (i = 0; string[i]; i ++)
+	{
+		string[i] = tolower(string[i]);
+	}
+
+}
+
+int main (int argc, char* argv[])
+{
+	printf("Anagrammic distance software v0.2\n");
+
+	int proceed = 1;
+	char reference[25];
+	char testee[25];
+
+	while (proceed)
+	{
+		printf("1:> ");
+		scanf("%s", reference);
+		lowercase(reference);
+
+		printf("2:> ");
+		scanf("%s", testee);
+		lowercase(reference);
+
+		calculate_anagrammic_distance(reference, testee);
+	}
 
 	return 0;
-
 }
